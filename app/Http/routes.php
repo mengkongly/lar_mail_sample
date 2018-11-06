@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,4 +15,19 @@
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/send-mail',function(){
+
+    $data   =   [
+                'title'=>'Hi everybody, this is my title of email.',
+                'content'=>'This is my testing email with laravel using mailgun service.'
+    ];
+
+    Mail::send('emails.testmail',$data,function($message){
+
+        $message->to('example@gmail.com','MK Gmail')->subject('Hello this is testing mail');
+
+    });
+
 });
